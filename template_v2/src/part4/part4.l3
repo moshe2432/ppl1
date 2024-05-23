@@ -7,8 +7,9 @@
 
 (define reverse
     (lambda (l)
-    @todo
+    (if (null? l) '() (append (reverse (cdr l)) (list (car l))))
 ))
+
 
 (define duplicate-items
     (lambda (lst, dup-count)
