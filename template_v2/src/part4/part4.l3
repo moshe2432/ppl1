@@ -18,17 +18,46 @@
 (define reverse
     (lambda (l)
     (if (null? l) 
-    '() 
-    (append (reverse (cdr l)) (list (car l))))
+        '() 
+        (append (reverse (cdr l)) (list (car l))))
 ))
 
 
-(define duplicate-item 
-    (lambda (item,number)
-    (if(= number 0)
-    '()
-    (cons item (duplicate-item item (number-1)))
+; Signature:(len l)
+; Type: l is a list
+; Purpose: return the length of the list
+; Pre-conditions:
+; Tests:(len '(1 4 5 2)) => 4
+(define len
+    (lambda (l) 
+    (if(null? l)
+        0
+        (+ 1 (len(cdr l)))
     )
+))
+
+
+; Signature:(duplicate-item item count)
+; Type:item:T count:number
+; Purpose: return a list with the item count times
+; Pre-conditions:number >=0
+; Tests:((duplicate-item 5 3)) => '(5 5 5)
+(define duplicate-item 
+    (lambda (item count)
+    (if(<= count 0)
+        '()
+        (cons item (duplicate-item item (- count 1)))
+    )
+))
+
+
+
+
+(define duplicate-help
+    (lambda (lst dup-count indx)
+        (if (null? lst) 
+        '()
+        (append (duplicate-item (car lst) (????)) (duplicate-help (cdr lst) dup-count (+ indx 1))))  
 ))
 
 ; Signature:
@@ -37,9 +66,6 @@
 ; Pre-conditions:
 ; Tests:
 (define duplicate-items
-    (lambda (lst, dup-count)
-    (if (null? lst) 
-    '()
-    
-    )    
+    (lambda (lst dup-count)
+        (duplicate-help lst dup-count 0)
 ))
