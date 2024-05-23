@@ -1,17 +1,45 @@
 #lang racket/base
 
+; Signature: (append l1 l2)
+; Type:l1 is a list, l2 is a list
+; Purpose: append l2 to l1
+; Pre-conditions: none
+; Tests: (append '(1 2 3) '(4 5 6)) => '(1 2 3 4 5 6)
 (define append
     (lambda (l1 l2)
     (if (null? l1) l2 (cons (car l1) (append (cdr l1) l2)))
 ))
 
+; Signature: (reverse l)
+; Type:l is a list
+; Purpose: reverse a list
+; Pre-conditions: none
+; Tests: (reverse '(1 2 3)) => '(3 2 1)
 (define reverse
     (lambda (l)
-    (if (null? l) '() (append (reverse (cdr l)) (list (car l))))
+    (if (null? l) 
+    '() 
+    (append (reverse (cdr l)) (list (car l))))
 ))
 
 
+(define duplicate-item 
+    (lambda (item,number)
+    (if(= number 0)
+    '()
+    (cons item (duplicate-item item (number-1)))
+    )
+))
+
+; Signature:
+; Type:
+; Purpose:
+; Pre-conditions:
+; Tests:
 (define duplicate-items
     (lambda (lst, dup-count)
-    @todo    
+    (if (null? lst) 
+    '()
+    
+    )    
 ))
