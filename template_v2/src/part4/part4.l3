@@ -7,7 +7,7 @@
 ; Tests: (append '(1 2 3) '(4 5 6)) => '(1 2 3 4 5 6)
 (define append
     (lambda (l1 l2)
-    (if (null? l1) l2 (cons (car l1) (append (cdr l1) l2)))
+    (if (empty? l1) l2 (cons (car l1) (append (cdr l1) l2)))
 ))
 
 ; Signature: (reverse l)
@@ -17,7 +17,7 @@
 ; Tests: (reverse '(1 2 3)) => '(3 2 1)
 (define reverse
     (lambda (l)
-    (if (null? l) 
+    (if (empty? l) 
         '() 
         (append (reverse (cdr l)) (list (car l))))
 ))
@@ -30,21 +30,40 @@
 ; Tests:(len '(1 4 5 2)) => 4
 (define len
     (lambda (l) 
-    (if(null? l)
+    (if(empty? l)
         0
         (+ 1 (len(cdr l)))
     )
 ))
 
+
+
+; Signature:(modulo x y)
+; Type: x:number y:number => number
+; Purpose: calcolate modulo
+; Pre-conditions: x > 0 y >= 0
+; Tests:(modulo 5 2) => 1 , (modulo 13 5) => 3
+(define modulo 
+    (lambda (x y)
+    (if (< x y)
+    x
+    (modulo (- x y) y))
+    ))
+
+
+
+; Signature:(modulo lst n)
+; Type: lst:number[] n:number => number
+; Purpose: retturn the n'th value in the list 
+; Pre-conditions: (empty? lst)=>false n >= 0
+; Tests:(modulo 5 2) => 1 , (modulo 13 5) => 3
 (define getN
     (lambda (lst n)
-    (if (null? lst) 
-    '() 
-    (if(= n 0) 
+    (if(= n  0) 
     (car lst)
-    ))    
+    (getN (cdr lst) (- n 1))))
     
-))
+)
 
 ; Signature:(duplicate-item item count)
 ; Type:item:T count:number
@@ -64,9 +83,9 @@
 
 (define duplicate-help
     (lambda (lst dup-count indx)
-        (if (null? lst) 
+        (if (empty? lst) 
         '()
-        (append (duplicate-item (car lst) (????)) (duplicate-help (cdr lst) dup-count (+ indx 1))))  
+        (append (duplicate-item (car lst) (getN dup-count (modulo index (len dup-count)))) (duplicate-help (cdr lst) dup-count (+ indx 1))))  
 ))
 
 ; Signature:
