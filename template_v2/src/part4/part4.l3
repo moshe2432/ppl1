@@ -36,6 +36,15 @@
     )
 ))
 
+(define getN
+    (lambda (lst n)
+    (if (null? lst) 
+    '() 
+    (if(= n 0) 
+    (car lst)
+    ))    
+    
+))
 
 ; Signature:(duplicate-item item count)
 ; Type:item:T count:number
