@@ -30,12 +30,14 @@ const isPaired1 = (s: string): string[]=>{
 const isPaired2 = (sArr:string[],left:number,right:number):boolean=>{
     if (left > right) return true;
     if (!openBrac.has(sArr[left]))return false
+    
     const findMatch = (i:number):number=>{
         return i>right ? -1 : sArr[i] === pearBrac[sArr[left]] ? i : findMatch(i+1)
     }
 
     const match = findMatch(left + 1)
-    return (match !== -1 && isPaired2(sArr,left+1,match-1) && isPaired2(sArr,match+1,right));
+    if (match === -1) return false
+    return (isPaired2(sArr,left+1,match-1) && isPaired2(sArr,match+1,right));
 };
 
 
