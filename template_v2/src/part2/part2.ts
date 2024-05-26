@@ -18,7 +18,7 @@ const allBrac:Set<string>=  new Set(['[','{','(',']','}',')'])
 
 export const isPaired = (s: string): boolean=>{
     const SArr:string[] = isPaired1(s)
-    return (SArr.length === 0 ||(SArr.length %2 === 0 && isPaired2(SArr,0,SArr.length-1)))
+    return (SArr.length === 0 ||(SArr.length %2 === 0 && isPaired2(SArr,"",0)))
     
 };
 
@@ -27,18 +27,15 @@ const isPaired1 = (s: string): string[]=>{
 };
 
 
-const isPaired2 = (sArr:string[],left:number,right:number):boolean=>{
-    if (left > right) return true;
-    if (!openBrac.has(sArr[left]))return false
-    
-    const findMatch = (i:number):number=>{
-        return i>right ? -1 : sArr[i] === pearBrac[sArr[left]] ? i : findMatch(i+1)
+const isPaired2 = (s:string[] , stack : string,i:number):boolean=>{
+    if(i === s.length){
+        if(stack === "")return true
+        return false
     }
-
-    const match = findMatch(left + 1)
-    if (match === -1) return false
-    return (isPaired2(sArr,left+1,match-1) && isPaired2(sArr,match+1,right));
-};
+    if(openBrac.has(s[i]))return isPaired2(s,stack.concat(s[i]),i+1)
+    if(stack[stack.length - 1] !== pearBrac[s[i]])return false
+    return isPaired2(s,stack.slice(0,-1),i+1) 
+}
 
 
 /* Question 3 */
